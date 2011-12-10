@@ -1,0 +1,75 @@
+name: AbsoluteEconomy
+main: com.Xeology.AbsoluteEconomy.AbsoluteEconomy
+version: Alpha.1
+description: The Absolute Advantage to economics for Bukkit!
+authors: [Xeology]
+commands:
+  mybal:
+    description: Displays your balance.
+    usage: /<command>
+  mypay:
+    description: Pays a user.
+    usage: /<command> <Player> <Amount>
+  mygive:
+    description: Gives a player money from the bank.
+    usage: /<command> <Player> <Amount>
+  mytake:
+    description: Takes money from the player and gives it to the bank.
+    usage: /<command> <Player> <Amount>
+  mystock:
+    description: Displays your personalized view of the stocks.
+    usage: /<command>
+  buyore:
+    description: Buys the selected standard from the Central Bank.
+    usage: /<command> <Gold/Iron/Diamond> <Amount>
+  sellore:
+    description: Sells the selected standard to the Central Bank.
+    usage: /<command> <Gold/Iron/Diamond> <Amount>
+  myreset:
+    description: Resets another player's balance.
+    usage: /<command> <Player>
+  valueore:
+    description: Find the value of a given amount of a given ore with a given ratio.
+    usage: /<command> <Gold/Iron/Diamond> <Amount> <Ratio>
+  taxcalc:
+    description: Find the current tax on a given amount.
+    usage: /<command> <Amount>
+  mycredit:
+    description: Displays your credit.
+    usage: /<command>
+  checkcredit:
+    description: Displays another player's credit.
+    usage: /<command> <Player>
+  checkbal:
+    description: Displays another player's balance.
+    usage: /<command> <Player>
+  cancelbounty:
+    description: Cancels your bounty.
+    usage: /<command>
+  mybounties:
+    description: Displays all available bounties.
+    usage: /<command> <PageNum>
+  mybounty:
+    description: Displays your accepted bounty.
+    usage: /<command>
+  quitbounty:
+    description: Quits your accepted bounty.
+    usage: /<command>
+  removeclient:
+    description: Removes the client from your bounty.
+    usage: /<command>
+  takebounty:
+    description: Accepts a bounty.
+    usage: /<command> <ID>
+  setbounty:
+    description: Sets a bounty on a player.
+    usage: /<command> <Player> <Amount> <True/False>
+  mytarget:
+    description: Shows information about your bounty.
+    usage: /<command>
+  takecredit:
+    description: Take credit from a player.
+    usage: /<command> <Player> <Amount>
+  givecredit:
+    description: Give credit to a player.
+    usage: /<command> <Player> <Amount>

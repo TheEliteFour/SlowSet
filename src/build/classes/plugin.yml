@@ -1,0 +1,16 @@
+name: SlowSet
+main: net.aesircraft.SlowSet.SlowSet
+version: V1.0
+description: Slow Setting Plugin!
+authors: [Xeology]
+commands:
+  xset:
+    description: Set the current selection to the item in your hand.
+    usage: /<command>
+  aset:
+    description: Set the current selection to the item in your hand.
+    usage: /<command>
+  xundo:
+    description: Undo your last SlowSet command.
+    usage: /<command>
+    

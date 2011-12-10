@@ -1,0 +1,96 @@
+package com.Xeology.AbsoluteEconomy.Commands;
+
+import com.Xeology.AbsoluteEconomy.AbsoluteEconomy;
+import com.Xeology.AbsoluteEconomy.Bank.Bank;
+import com.Xeology.AbsoluteEconomy.Bank.Form;
+import com.Xeology.AbsoluteEconomy.Bank.Ores.Diamond;
+import com.Xeology.AbsoluteEconomy.Bank.Ores.Gold;
+import com.Xeology.AbsoluteEconomy.Bank.Ores.Iron;
+import com.Xeology.AbsoluteEconomy.Players.Inventory;
+import com.earth2me.essentials.api.Economy;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+
+
+public class buyoreCommand implements CommandExecutor
+{
+	public static AbsoluteEconomy plugin;
+	 public buyoreCommand(AbsoluteEconomy instance){
+		 plugin=instance;
+	 }
+	@Override
+	public boolean onCommand(CommandSender player, Command command, String cmd,
+			String[] comA) {
+		if (comA.length<2)
+			return false;
+		if (!plugin.permissionHandler.has((Player) player, "absoluteeconomy.stock.buy")){
+			player.sendMessage("§4You don't have permission for that.");
+			return true;
+		}
+		if (comA[0]==null)
+			return false;
+		if (!comA[0].toUpperCase().equals("GOLD")&&!comA[0].toUpperCase().equals("IRON")&&!comA[0].toUpperCase().equals("DIAMOND"))	
+			return false;		
+		if (comA[1]==null)
+			return false;
+		int amount=Integer.parseInt(comA[1].replaceAll("[^\\d\\.]*", ""));		
+		if (amount<=0)
+			return false;
+		if (comA[0].toUpperCase().equals("GOLD")&&Gold.lockedLow()){
+			player.sendMessage("§4Gold is locked out from buying right now.");
+			return true;
+		}		
+		if (comA[0].toUpperCase().equals("IRON")&&Iron.lockedLow()){
+			player.sendMessage("§4Iron is locked out from buying right now.");
+			return true;
+		}
+		if (comA[0].toUpperCase().equals("DIAMOND")&&Diamond.lockedLow()){
+			player.sendMessage("§4Diamond is locked out from buying right now.");
+			return true;
+		}			
+		if (!Inventory.isSpace(((Player) player), amount)){
+			player.sendMessage("§4You do not have enough space for that much.");
+			return true;		
+		}
+		if (comA[0].toUpperCase().equals("GOLD")&&!Economy.hasEnough(((Player) player).getName(), amount*Gold.getValueReversed())){
+			player.sendMessage("§4You do not have enough for that much.");
+			return true;
+		}
+		if (comA[0].toUpperCase().equals("IRON")&&!Economy.hasEnough(((Player) player).getName(), amount*Iron.getValueReversed())){
+			player.sendMessage("§4You do not have enough for that much.");
+			return true;
+		}
+		if (comA[0].toUpperCase().equals("DIAMOND")&&!Economy.hasEnough(((Player) player).getName(), amount*Diamond.getValueReversed())){
+			player.sendMessage("§4You do not have enough for that much.");
+			return true;
+		}
+		if (comA[0].toUpperCase().equals("GOLD")){
+				Inventory.give(((Player) player).getName(), "266", amount);
+				Gold.subtract(amount);
+				Bank.mainGive(amount*Gold.getValueReversed());
+				Economy.subtract(((Player) player).getName(), amount*Gold.getValueReversed());
+				player.sendMessage("§2Your order for §b"+comA[0]+"§2 for §b"+Form.formatter(amount*Gold.getValueReversed())+"§2 has been completed.");
+				return true;
+		}
+		if (comA[0].toUpperCase().equals("IRON")){
+				Inventory.give(((Player) player).getName(), "265", amount);
+				Iron.subtract(amount);
+				Bank.mainGive(amount*Iron.getValueReversed());
+				Economy.subtract(((Player) player).getName(), amount*Iron.getValueReversed());
+				player.sendMessage("§2Your order for §b"+comA[0]+"§2 for §b"+Form.formatter(amount*Iron.getValueReversed())+"§2 has been completed.");
+				return true;
+		}
+		if (comA[0].toUpperCase().equals("DIAMOND")){
+				Inventory.give(((Player) player).getName(), "264", amount);
+				Diamond.subtract(amount);
+				Bank.mainGive(amount*Diamond.getValueReversed());
+				Economy.subtract(((Player) player).getName(), amount*Diamond.getValueReversed());
+				player.sendMessage("§2Your order for §b"+comA[0]+"§2 for §b"+Form.formatter(amount*Diamond.getValueReversed())+"§2 has been completed.");
+				return true;
+		}		
+		return false;
+	}
+}
